@@ -44,7 +44,7 @@ def generate_cb_chain(llm_model, template_str):
     return LLMChain(
         llm = llm_model,
         prompt = PromptTemplate(input_variables=["history", "question"], template=template_str),
-        memory = ConversationBufferWindowMemory(k=2, memory_key="history")
+        memory = ConversationBufferWindowMemory(k=5, memory_key="history", return_messages=True)
     )
 
 # Context_Chat functions

@@ -26,6 +26,12 @@ try:
             submitted = st.form_submit_button("Submit")
             if submitted:
                 answer = st.session_state["chatbot_chain"].predict(question=query)
-                st.write(answer)
+                memory = st.session_state["chatbot_chain"].memory.load_memory_variables({})
+                for i, msg in enumerate(memory["history"]):
+                    if i % 2 == 0:
+                        st.write("Human: {}".format(msg.content))
+                    else:
+                        st.write(":blue[Assistant: {}]".format(msg.content))
+                # st.write(answer)
 except KeyError:
     st.error("Please choose a LLM provider on the Main page!")
